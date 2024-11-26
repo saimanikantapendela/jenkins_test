@@ -1,6 +1,8 @@
 pipeline {
-    agent any
-
+    agent {
+	    label 'linux'
+    }
+	
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "MVN3"
@@ -29,11 +31,12 @@ pipeline {
                     junit stdioRetention: '', testResults: 'api-gateway/target/surefire-reports/*.xml'
                     archiveArtifacts 'api-gateway/target/*.jar'
            }
-        }stage('Print') {
-            steps {
-                   sh "echo testing"
-           }
         }
-    
+
+	stage('print') {
+		steps {
+			sh "echo testing"
+		}
+	}
     }
 }
